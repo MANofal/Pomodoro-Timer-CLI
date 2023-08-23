@@ -2,11 +2,24 @@ package src.main.java.com.manofal.pomodoro;
 
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PomodoroTimer {
 
+    private record Session(LocalTime startTime, long duration, Type type ) {
+        public String toString() {
+            String sessionTypeName = (type == Type.STUDY) ? "Study" : "Rest";
+            return String.format("%s Session\t - Start Time: %s,\t Duration: %d minutes", sessionTypeName, startTime, duration);
+        }
+    }
+
+    private enum Type { STUDY, REST}
+
+    private final List<Session> sessions;
     private final LocalTime startTime;
     private final LocalTime endTime;
+    private LocalTime startSessionTime;
     private long totalTimeInMinutes;
     private long remainingTime;
     private int studySessionCount;
@@ -23,7 +36,10 @@ public class PomodoroTimer {
 
         validateTimeRange(startTime, endTime);
 
+        sessions = new ArrayList<>();
+
         this.startTime = startTime;
+        this.startSessionTime =startTime;
         this.endTime = endTime;
 
         calculateStatistics();
@@ -73,6 +89,8 @@ public class PomodoroTimer {
         studySessionCount++;
         totalStudyMinutes += STUDY_POMODORO_DURATION;
         remainingTime -= STUDY_POMODORO_DURATION;
+        sessions.add(new Session(startSessionTime, STUDY_POMODORO_DURATION, Type.STUDY));
+        startSessionTime = startSessionTime.plusMinutes(STUDY_POMODORO_DURATION);
     }
 
     private boolean shouldTakeLongRest() {
@@ -83,6 +101,8 @@ public class PomodoroTimer {
         restSessionCount++;
         totalRestMinutes += restDuration;
         remainingTime -= restDuration;
+        sessions.add(new Session(startSessionTime, restDuration, Type.REST));
+        startSessionTime = startTime.plusMinutes(restDuration);
     }
 
     private void calcExtraMinutes() {
@@ -102,6 +122,22 @@ public class PomodoroTimer {
                         "Extra minutes:\t\t " + extraMinutes + " minutes\n" +
                         "=========================================";
         System.out.println(summary);
+    }
+
+    public void printSessions() {
+        System.out.println("==================");
+        System.out.println("Pomodoro Sessions:");
+        System.out.println("==================");
+
+        if (sessions.isEmpty()) {
+            System.out.println("No sessions recorded.");
+        } else {
+            for (int i = 0; i < sessions.size(); i++) {
+                System.out.printf("Session %d:\n", i + 1);
+                System.out.println(sessions.get(i));
+                System.out.println("------------------");
+            }
+        }
     }
 
     public long getTotalTimeInMinutes() {
