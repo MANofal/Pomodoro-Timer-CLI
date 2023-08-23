@@ -10,13 +10,17 @@ public class PomodoroTimerCLI {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nWelcome to the Pomodoro Timer CLI!");
-        System.out.println("===================================");
+        System.out.println("===================================\n");
 
         PomodoroTimer pomodoro = readPomodoroTime(scanner);
 
         System.out.println("\nCalculating Pomodoro statistics...\n");
 
         pomodoro.printStatistics();
+
+        System.out.println("\nCalculating Pomodoro sessions...\n");
+
+        pomodoro.printSessions();
 
         System.out.println("\nThank you for using the Pomodoro Timer CLI!");
 
