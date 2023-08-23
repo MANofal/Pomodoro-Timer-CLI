@@ -31,6 +31,43 @@ Upon running the program, you will be guided through the following steps:
 
 4. The program offers an intuitive interface for effectively managing study and rest sessions.
 
+## Sample Output
+
+```
+Welcome to the Pomodoro Timer CLI!
+===================================
+
+Enter start time (HH:mm): 06:00
+Enter end time (HH:mm): 07:30
+
+Calculating Pomodoro statistics...
+
+=========================================
+Pomodoro statistics (06:00 to 07:30)
+=========================================
+Total Time:           90 minutes (1h:30m)
+Study Sessions:       3
+Rest Sessions:        3
+Total Study Time:     75 minutes (1h:15m)
+Total Rest Time:      15 minutes (0h:15m)
+Extra minutes:        0 minutes
+=========================================
+
+Calculating Pomodoro sessions...
+
+==================
+Pomodoro Sessions:
+==================
+Session 1:
+Study Session   - Start Time: 06:00,     Duration: 25 minutes
+------------------
+Session 2:
+Rest Session    - Start Time: 06:25,     Duration: 5 minutes
+------------------
+...
+Thank you for using the Pomodoro Timer CLI!
+```
+
 ## Thank You
 
 Thank you for using the Pomodoro Timer CLI to enhance your productivity and time management skills. We hope this program assists you in maintaining focus and organization during your study or work sessions.
