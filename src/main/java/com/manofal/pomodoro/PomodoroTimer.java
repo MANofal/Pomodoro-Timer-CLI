@@ -102,7 +102,7 @@ public class PomodoroTimer {
         totalRestMinutes += restDuration;
         remainingTime -= restDuration;
         sessions.add(new Session(startSessionTime, restDuration, Type.REST));
-        startSessionTime = startTime.plusMinutes(restDuration);
+        startSessionTime = startSessionTime.plusMinutes(restDuration);
     }
 
     private void calcExtraMinutes() {
